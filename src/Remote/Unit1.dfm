@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 488
-  ClientWidth = 674
+  ClientHeight = 512
+  ClientWidth = 1056
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,69 +11,50 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 100
-    Width = 674
+    Top = 125
+    Width = 1056
     Height = 3
     Cursor = crVSplit
     Align = alTop
-    ExplicitWidth = 388
+    ExplicitLeft = 8
+    ExplicitTop = 109
+    ExplicitWidth = 674
   end
-  object DBGrid2: TDBGrid
+  object DBGrid1: TDBGrid
     Left = 0
-    Top = 0
-    Width = 674
+    Top = 25
+    Width = 1056
     Height = 100
     Align = alTop
-    DataSource = DataSource3
+    DataSource = DataSource2
+    PopupMenu = PopupMenu1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnColExit = DBGrid1ColExit
+    OnDrawColumnCell = DBGrid1DrawColumnCell
   end
-  object DBGrid1: TDBGrid
+  object DBGrid3: TDBGrid
     Left = 0
-    Top = 103
-    Width = 674
+    Top = 153
+    Width = 1056
     Height = 100
     Align = alTop
-    DataSource = DataSource2
+    DataSource = DataSource1
+    PopupMenu = PopupMenu1
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-  end
-  object DBGrid3: TDBGrid
-    Left = 0
-    Top = 203
-    Width = 674
-    Height = 100
-    Align = alTop
-    DataSource = DataSource2
-    PopupMenu = PopupMenu1
-    TabOrder = 2
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-  end
-  object Button1: TButton
-    Left = 8
-    Top = 320
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
-    TabOrder = 3
-    OnClick = Button1Click
   end
   object DBMemo1: TDBMemo
     Left = 328
@@ -82,108 +63,190 @@ object Form1: TForm1
     Height = 89
     DataField = 'text'
     DataSource = DataSource2
-    TabOrder = 4
+    TabOrder = 2
+    Visible = False
   end
   object DBNavigator1: TDBNavigator
-    Left = 8
-    Top = 373
-    Width = 240
+    Left = 0
+    Top = 0
+    Width = 1056
     Height = 25
     DataSource = DataSource2
+    Align = alTop
     Kind = dbnHorizontal
+    TabOrder = 3
+  end
+  object DBNavigator2: TDBNavigator
+    Left = 0
+    Top = 128
+    Width = 1056
+    Height = 25
+    DataSource = DataSource1
+    Align = alTop
+    Kind = dbnHorizontal
+    TabOrder = 4
+  end
+  object DBGrid2: TDBGrid
+    Left = 0
+    Top = 278
+    Width = 1056
+    Height = 100
+    Align = alTop
+    DataSource = DataSource3
+    PopupMenu = PopupMenu1
     TabOrder = 5
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnColExit = DBGrid2ColExit
+    OnDrawDataCell = DBGrid2DrawDataCell
+    OnDrawColumnCell = DBGrid2DrawColumnCell
+    OnKeyPress = DBGrid2KeyPress
   end
-  object MySQL: TSQLConnection
-    DriverName = 'MySQL'
-    GetDriverFunc = 'getSQLDriverMYSQL'
-    LibraryName = 'dbxmys.dll'
-    LoginPrompt = False
-    Params.Strings = (
-      'DriverUnit=Data.DBXMySQL'
-      
-        'DriverPackageLoader=TDBXDynalinkDriverLoader,DbxCommonDriver160.' +
-        'bpl'
-      
-        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
-        'nd.Data.DbxCommonDriver,Version=16.0.0.0,Culture=neutral,PublicK' +
-        'eyToken=91d62ebb5b0d1b1b'
-      
-        'MetaDataPackageLoader=TDBXMySqlMetaDataCommandFactory,DbxMySQLDr' +
-        'iver160.bpl'
-      
-        'MetaDataAssemblyLoader=Borland.Data.TDBXMySqlMetaDataCommandFact' +
-        'ory,Borland.Data.DbxMySQLDriver,Version=16.0.0.0,Culture=neutral' +
-        ',PublicKeyToken=91d62ebb5b0d1b1b'
-      'GetDriverFunc=getSQLDriverMYSQL'
-      'LibraryName=dbxmys.dll'
-      'LibraryNameOsx=libsqlmys.dylib'
-      'VendorLib=LIBMYSQL.dll'
-      'VendorLibWin64=libmysql.dll'
-      'VendorLibOsx=libmysqlclient.dylib'
-      'HostName=localhost'
-      'Database=plans'
-      'User_Name=peter'
-      'Password=abc123'
-      'MaxBlobSize=-1'
-      'LocaleCode=0000'
-      'Compressed=False'
-      'Encrypted=False'
-      'BlobSize=-1'
-      'ErrorResourceFile=')
-    VendorLib = 'libmysql.dll'
-    Connected = True
-    Left = 16
-    Top = 152
+  object DBLookupComboBox1: TDBLookupComboBox
+    Left = 144
+    Top = 368
+    Width = 145
+    Height = 21
+    DataField = 'userid'
+    DataSource = DataSource3
+    KeyField = 'id'
+    ListField = 'id; username'
+    ListSource = DataSource1
+    TabOrder = 6
+    Visible = False
   end
-  object DataSource1: TDataSource
-    AutoEdit = False
-    DataSet = SQLTable1
-    Left = 48
-    Top = 112
+  object DBNavigator3: TDBNavigator
+    Left = 0
+    Top = 253
+    Width = 1056
+    Height = 25
+    DataSource = DataSource3
+    Align = alTop
+    Kind = dbnHorizontal
+    TabOrder = 7
   end
-  object Table1: TTable
-    Left = 192
-    Top = 152
+  object DBMemo2: TDBMemo
+    Left = 536
+    Top = 309
+    Width = 185
+    Height = 89
+    DataField = 'text'
+    DataSource = DataSource3
+    TabOrder = 8
+    Visible = False
   end
-  object SQLConnection1: TSQLConnection
-    DriverName = 'MySQL'
-    GetDriverFunc = 'getSQLDriverMYSQL'
-    LibraryName = 'dbxmys.dll'
-    Params.Strings = (
-      'DriverUnit=Data.DBXMySQL'
-      
-        'DriverPackageLoader=TDBXDynalinkDriverLoader,DbxCommonDriver160.' +
-        'bpl'
-      
-        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
-        'nd.Data.DbxCommonDriver,Version=16.0.0.0,Culture=neutral,PublicK' +
-        'eyToken=91d62ebb5b0d1b1b'
-      
-        'MetaDataPackageLoader=TDBXMySqlMetaDataCommandFactory,DbxMySQLDr' +
-        'iver160.bpl'
-      
-        'MetaDataAssemblyLoader=Borland.Data.TDBXMySqlMetaDataCommandFact' +
-        'ory,Borland.Data.DbxMySQLDriver,Version=16.0.0.0,Culture=neutral' +
-        ',PublicKeyToken=91d62ebb5b0d1b1b'
-      'GetDriverFunc=getSQLDriverMYSQL'
-      'LibraryName=dbxmys.dll'
-      'LibraryNameOsx=libsqlmys.dylib'
-      'VendorLib=LIBMYSQL.dll'
-      'VendorLibWin64=libmysql.dll'
-      'VendorLibOsx=libmysqlclient.dylib'
-      'HostName=ServerName'
-      'Database=DBNAME'
-      'User_Name=peter'
-      'Password=abc123'
-      'MaxBlobSize=-1'
-      'LocaleCode=0000'
-      'Compressed=False'
-      'Encrypted=False'
-      'BlobSize=-1'
-      'ErrorResourceFile=')
-    VendorLib = 'LIBMYSQL.dll'
-    Left = 104
-    Top = 160
+  object Panel1: TPanel
+    Left = 0
+    Top = 458
+    Width = 185
+    Height = 39
+    Align = alCustom
+    TabOrder = 9
+    object btnExport2Excel: TButton
+      Left = 1
+      Top = 13
+      Width = 183
+      Height = 25
+      Align = alBottom
+      Caption = 'btnExport2Excel'
+      TabOrder = 0
+      OnClick = btnExport2ExcelClick
+      ExplicitLeft = 592
+      ExplicitTop = 352
+      ExplicitWidth = 97
+    end
+  end
+  object Panel2: TPanel
+    Left = 190
+    Top = 458
+    Width = 185
+    Height = 39
+    Align = alCustom
+    TabOrder = 10
+    object btnTest: TButton
+      Left = 1
+      Top = 13
+      Width = 183
+      Height = 25
+      Align = alBottom
+      Caption = 'Test Query'
+      TabOrder = 0
+      OnClick = btnTestClick
+    end
+  end
+  object Panel3: TPanel
+    Left = 380
+    Top = 404
+    Width = 185
+    Height = 93
+    Align = alCustom
+    TabOrder = 11
+    object btnQuery: TButton
+      Left = 1
+      Top = 67
+      Width = 183
+      Height = 25
+      Align = alBottom
+      Caption = 'Test Query'
+      TabOrder = 0
+      OnClick = btnQueryClick
+      ExplicitTop = 13
+    end
+    object Memo1: TMemo
+      Left = 96
+      Top = 0
+      Width = 17
+      Height = 1
+      Lines.Strings = (
+        'M'
+        'e'
+        'm'
+        'o'
+        '1')
+      TabOrder = 1
+    end
+    object Memo2: TMemo
+      Left = 1
+      Top = 0
+      Width = 185
+      Height = 61
+      Lines.Strings = (
+        'select email from users where '
+        'username = 7 and id = 9')
+      TabOrder = 2
+    end
+  end
+  object DBGrid4: TDBGrid
+    Left = 571
+    Top = 398
+    Width = 477
+    Height = 100
+    Align = alCustom
+    DataSource = DataSource4
+    PopupMenu = PopupMenu1
+    TabOrder = 12
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnColExit = DBGrid2ColExit
+    OnDrawDataCell = DBGrid2DrawDataCell
+    OnDrawColumnCell = DBGrid2DrawColumnCell
+    OnKeyPress = DBGrid2KeyPress
+  end
+  object DBNavigator4: TDBNavigator
+    Left = 571
+    Top = 373
+    Width = 477
+    Height = 25
+    DataSource = DataSource4
+    Align = alCustom
+    Kind = dbnHorizontal
+    TabOrder = 13
   end
   object ADOConnection1: TADOConnection
     Connected = True
@@ -191,16 +254,16 @@ object Form1: TForm1
       'Provider=MSDASQL.1;Password=abc123;Persist Security Info=True;Us' +
       'er ID=peter;Data Source=MySQL32'
     LoginPrompt = False
-    Left = 104
-    Top = 248
+    Left = 8
+    Top = 208
   end
   object ADOTable1: TADOTable
     Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     TableName = 'baselinechatlines'
-    Left = 152
-    Top = 248
+    Left = 40
+    Top = 208
     object ADOTable1id: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -223,51 +286,8 @@ object Form1: TForm1
   end
   object DataSource2: TDataSource
     DataSet = ADOTable1
-    Left = 192
-    Top = 248
-  end
-  object SQLTable1: TSQLTable
-    IndexFieldNames = 'id'
-    MaxBlobSize = 1
-    SQLConnection = MySQL
-    TableName = 'plans'
-    Left = 16
-    Top = 88
-  end
-  object ClientDataSet1: TClientDataSet
-    Active = True
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DataSetProvider1'
-    Left = 96
-    Top = 56
-  end
-  object DataSetProvider1: TDataSetProvider
-    DataSet = SQLDataSet1
     Left = 72
-    Top = 8
-  end
-  object SQLDataSet1: TSQLDataSet
-    SchemaName = 'plans'
-    Active = True
-    CommandText = 'plans'
-    CommandType = ctTable
-    DbxCommandType = 'Dbx.Table'
-    MaxBlobSize = 1
-    Params = <>
-    SQLConnection = MySQL
-    Left = 16
-    Top = 8
-  end
-  object DataSource3: TDataSource
-    DataSet = ClientDataSet1
-    Left = 104
-    Top = 104
-  end
-  object DataSource4: TDataSource
-    DataSet = SQLDataSet1
-    Left = 48
-    Top = 40
+    Top = 208
   end
   object PopupMenu1: TPopupMenu
     Left = 248
@@ -277,11 +297,177 @@ object Form1: TForm1
       OnClick = Deletecurrentrow1Click
     end
   end
-  object BindingsList1: TBindingsList
-    Methods = <>
-    OutputConverters = <>
-    UseAppManager = True
-    Left = 20
-    Top = 5
+  object ADOConnection2: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=MSDASQL.1;Password=tI7*iT7%;Persist Security Info=True;' +
+      'User ID=sql543883;Data Source=RemoteMySQL;Initial Catalog=sql543' +
+      '883'
+    LoginPrompt = False
+    Left = 8
+    Top = 256
+  end
+  object ADOTable2: TADOTable
+    Active = True
+    Connection = ADOConnection2
+    CursorType = ctStatic
+    TableName = 'users'
+    Left = 40
+    Top = 256
+    object ADOTable2id: TAutoIncField
+      DisplayWidth = 5
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object ADOTable2username: TStringField
+      DisplayWidth = 10
+      FieldName = 'username'
+      Size = 50
+    end
+    object ADOTable2email: TStringField
+      DisplayWidth = 8
+      FieldName = 'email'
+      Size = 50
+    end
+    object ADOTable2password: TStringField
+      DisplayWidth = 50
+      FieldName = 'password'
+      Size = 50
+    end
+    object ADOTable2signup_date: TIntegerField
+      DisplayWidth = 15
+      FieldName = 'signup_date'
+    end
+    object ADOTable2language: TStringField
+      DisplayWidth = 16
+      FieldName = 'language'
+      Size = 255
+    end
+    object ADOTable2status: TSmallintField
+      DisplayWidth = 8
+      FieldName = 'status'
+    end
+    object ADOTable2last_activity: TIntegerField
+      DisplayWidth = 15
+      FieldName = 'last_activity'
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = ADOTable2
+    Left = 72
+    Top = 256
+  end
+  object ADOConnection3: TADOConnection
+    ConnectionString = 
+      'Provider=MSDASQL.1;Password=abc123;Persist Security Info=True;Us' +
+      'er ID=u597057267_peter;Data Source=JulfySoft;Initial Catalog=u59' +
+      '7057267_ajaxdemo'
+    LoginPrompt = False
+    Provider = 'MSDASQL.1'
+    Left = 8
+    Top = 304
+  end
+  object ADOTable3: TADOTable
+    Active = True
+    Connection = ADOConnection2
+    CursorType = ctStatic
+    TableName = 'baselinechatlines'
+    Left = 40
+    Top = 280
+    object ADOTable3id: TAutoIncField
+      DisplayWidth = 12
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object ADOTable3userid: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'userid'
+    end
+    object ADOTable3username: TStringField
+      DisplayWidth = 49
+      FieldName = 'username'
+      Size = 50
+    end
+    object ADOTable3text: TMemoField
+      DisplayWidth = 12
+      FieldName = 'text'
+      OnGetText = ADOTable3textGetText
+      BlobType = ftMemo
+    end
+    object ADOTable3time: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'time'
+    end
+  end
+  object DataSource3: TDataSource
+    DataSet = ADOTable3
+    Left = 72
+    Top = 280
+  end
+  object DataSource4: TDataSource
+    DataSet = ADOQuery1
+    Left = 320
+    Top = 416
+  end
+  object ADOTable4: TADOTable
+    Connection = ADOConnection4
+    CursorType = ctStatic
+    TableName = 'users'
+    Left = 40
+    Top = 352
+    object AutoIncField2: TAutoIncField
+      DisplayWidth = 4
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object StringField5: TStringField
+      DisplayWidth = 10
+      FieldName = 'username'
+      Size = 50
+    end
+    object StringField6: TStringField
+      DisplayWidth = 9
+      FieldName = 'email'
+      Size = 50
+    end
+    object StringField7: TStringField
+      DisplayWidth = 48
+      FieldName = 'password'
+      Size = 50
+    end
+    object IntegerField3: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'signup_date'
+    end
+    object StringField8: TStringField
+      DisplayWidth = 19
+      FieldName = 'language'
+      Size = 255
+    end
+    object SmallintField2: TSmallintField
+      DisplayWidth = 12
+      FieldName = 'status'
+    end
+    object IntegerField4: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'last_activity'
+    end
+  end
+  object ADOConnection4: TADOConnection
+    ConnectionString = 
+      'Provider=MSDASQL.1;Password=abc123;Persist Security Info=True;Us' +
+      'er ID=u339677023_peter;Data Source=owl;Initial Catalog=u33967702' +
+      '3_db'
+    LoginPrompt = False
+    Provider = 'MSDASQL.1'
+    Left = 8
+    Top = 352
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnection1
+    DataSource = DataSource2
+    Parameters = <>
+    Left = 32
+    Top = 424
   end
 end

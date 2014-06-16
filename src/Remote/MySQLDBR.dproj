@@ -3,7 +3,7 @@
 			<ProjectGuid>{C53D71AC-F8B9-4132-A88E-F4053DD9075C}</ProjectGuid>
 			<ProjectVersion>13.4</ProjectVersion>
 			<FrameworkType>VCL</FrameworkType>
-			<MainSource>MySQLDB2.dpr</MainSource>
+			<MainSource>MySQLDBR.dpr</MainSource>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -130,7 +130,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>
-						<Source Name="MainSource">MySQLDB2.dpr</Source>
+						<Source Name="MainSource">MySQLDBR.dpr</Source>
 					</Source>
 				</Delphi.Personality>
 				<Deployment/>

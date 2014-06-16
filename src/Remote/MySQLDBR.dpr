@@ -1,4 +1,4 @@
-program MySQLDB2;
+program MySQLDBR;
 
 uses
   Vcl.Forms,

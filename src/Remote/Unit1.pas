@@ -12,24 +12,12 @@ uses
 
 type
   TForm1 = class(TForm)
-    MySQL: TSQLConnection;
-    DataSource1: TDataSource;
-    Table1: TTable;
-    SQLConnection1: TSQLConnection;
     ADOConnection1: TADOConnection;
     ADOTable1: TADOTable;
     DataSource2: TDataSource;
-    DBGrid2: TDBGrid;
-    SQLTable1: TSQLTable;
-    ClientDataSet1: TClientDataSet;
-    DataSetProvider1: TDataSetProvider;
-    SQLDataSet1: TSQLDataSet;
-    DataSource3: TDataSource;
-    DataSource4: TDataSource;
     Splitter1: TSplitter;
     DBGrid1: TDBGrid;
     DBGrid3: TDBGrid;
-    Button1: TButton;
     PopupMenu1: TPopupMenu;
     Deletecurrentrow1: TMenuItem;
     DBMemo1: TDBMemo;
@@ -38,13 +26,70 @@ type
     ADOTable1username: TStringField;
     ADOTable1text: TMemoField;
     ADOTable1time: TIntegerField;
-    BindingsList1: TBindingsList;
     DBNavigator1: TDBNavigator;
-    procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    ADOConnection2: TADOConnection;
+    ADOTable2: TADOTable;
+    DataSource1: TDataSource;
+    ADOTable2id: TAutoIncField;
+    ADOTable2username: TStringField;
+    ADOTable2email: TStringField;
+    ADOTable2password: TStringField;
+    ADOTable2signup_date: TIntegerField;
+    ADOTable2language: TStringField;
+    ADOTable2status: TSmallintField;
+    ADOTable2last_activity: TIntegerField;
+    DBNavigator2: TDBNavigator;
+    ADOConnection3: TADOConnection;
+    ADOTable3: TADOTable;
+    DataSource3: TDataSource;
+    DataSource4: TDataSource;
+    ADOTable4: TADOTable;
+    AutoIncField2: TAutoIncField;
+    StringField5: TStringField;
+    StringField6: TStringField;
+    StringField7: TStringField;
+    IntegerField3: TIntegerField;
+    StringField8: TStringField;
+    SmallintField2: TSmallintField;
+    IntegerField4: TIntegerField;
+    ADOConnection4: TADOConnection;
+    DBGrid2: TDBGrid;
+    ADOTable3id: TAutoIncField;
+    ADOTable3userid: TIntegerField;
+    ADOTable3username: TStringField;
+    ADOTable3text: TMemoField;
+    ADOTable3time: TIntegerField;
+    DBLookupComboBox1: TDBLookupComboBox;
+    DBNavigator3: TDBNavigator;
+    DBMemo2: TDBMemo;
+    Panel1: TPanel;
+    btnExport2Excel: TButton;
+    ADOQuery1: TADOQuery;
+    Panel2: TPanel;
+    btnTest: TButton;
+    Panel3: TPanel;
+    btnQuery: TButton;
+    Memo1: TMemo;
+    Memo2: TMemo;
+    DBGrid4: TDBGrid;
+    DBNavigator4: TDBNavigator;
+    procedure btnExport2ExcelClick(Sender: TObject);
     procedure Deletecurrentrow1Click(Sender: TObject);
     procedure ADOTable1textGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure DBGrid2ColExit(Sender: TObject);
+    procedure DBGrid2DrawDataCell(Sender: TObject; const Rect: TRect;
+      Field: TField; State: TGridDrawState);
+    procedure DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid2KeyPress(Sender: TObject; var Key: Char);
+    procedure ADOTable3textGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid1ColExit(Sender: TObject);
+    procedure btnTestClick(Sender: TObject);
+    procedure btnQueryClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -237,19 +282,138 @@ begin
   Text := Copy(ADOTable1text.AsString, 1, 50);
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.ADOTable3textGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  Text := Copy(TMemoField(Sender).AsString, 1, 50);
+end;
+
+procedure TForm1.btnExport2ExcelClick(Sender: TObject);
 begin
   ExportRecordsetToMSExcel('D:\x.xls', ADOTable1.Recordset );
 end;
 
-procedure TForm1.Deletecurrentrow1Click(Sender: TObject);
+procedure TForm1.btnQueryClick(Sender: TObject);
 begin
-  ADOTable1.Delete;
+  ADOQuery1.SQL.Text := Memo2.Lines.Text;
+  ADOQuery1.ExecSQL;
+  ADOQuery1.Open;
+  ShowMessage('Executed successfully; ADOQuery1.RecordCount = ' + IntToStr(ADOQuery1.RecordCount) + ' ; ADOQuery1.RowsAffected = ' + IntToStr(ADOQuery1.RowsAffected) )
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TForm1.btnTestClick(Sender: TObject);
 begin
-  //MySQL.Connected := True;
+  ADOQuery1.SQL.Text := ' select email from users where username = 7 and id = 9';
+  ADOQuery1.ExecSQL;
+  ADOQuery1.Open;
+  if ADOQuery1.RecordCount = 1 then
+    ShowMessage(ADOQuery1.Fields[0].AsString )
+  else
+    ShowMessage('ADOQuery1.RecordCount :' + IntToStr(ADOQuery1.RecordCount) )
+end;
+
+procedure TForm1.DBGrid1ColExit(Sender: TObject);
+begin
+  if TDBGrid(Sender).SelectedField.FieldName = DBMemo1.DataField then
+    DBMemo1.Visible := False
+
+end;
+
+procedure TForm1.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if not (gdFocused in State) then
+    Exit;
+    if (Column.Field.FieldName = DBMemo1.DataField) then
+    with DBMemo1 do
+    begin
+      Left := Rect.Left + TDBGrid(Sender).Left + 2;
+      Top := Rect.Top + TDBGrid(Sender).Top + 2;
+      Width := Rect.Right - Rect.Left;
+      //Width := Rect.Right - Rect.Left;
+      //Height := Rect.Bottom - Rect.Top;
+
+      Visible := True;
+    end;
+end;
+
+procedure TForm1.DBGrid2ColExit(Sender: TObject);
+begin
+  if TDBGrid(Sender).SelectedField.FieldName = DBLookupComboBox1.DataField then
+    DBLookupComboBox1.Visible := False;
+  if TDBGrid(Sender).SelectedField.FieldName = DBMemo2.DataField then
+    DBMemo2.Visible := False
+
+end;
+
+procedure TForm1.DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+if (gdFocused in State) then
+  begin
+    if (Column.Field.FieldName = DBLookupComboBox1.DataField) then
+    with DBLookupComboBox1 do
+    begin
+      Left := Rect.Left + TDBGrid(Sender).Left + 2;
+      Top := Rect.Top + TDBGrid(Sender).Top + 2;
+      Width := Rect.Right - Rect.Left;
+      Width := Rect.Right - Rect.Left;
+      Height := Rect.Bottom - Rect.Top;
+
+      Visible := True;
+    end;
+    if (Column.Field.FieldName = DBMemo2.DataField) then
+    with DBMemo2 do
+    begin
+      Left := Rect.Left + TDBGrid(Sender).Left + 2;
+      Top := Rect.Top + TDBGrid(Sender).Top + 2;
+      Width := Rect.Right - Rect.Left;
+      //Width := Rect.Right - Rect.Left;
+      //Height := Rect.Bottom - Rect.Top;
+
+      Visible := True;
+    end;
+  end
+
+//if (gdFocused in State) then
+  //ShowMessage('DBGrid2DrawColumnCell ' + Column.Field.FieldName + '; DBLookupComboBox1.DataField: ' + DBLookupComboBox1.DataField );
+end;
+
+procedure TForm1.DBGrid2DrawDataCell(Sender: TObject; const Rect: TRect;
+  Field: TField; State: TGridDrawState);
+begin
+(* if (gdFocused in State) then
+  begin
+    if (Column.Field.FieldName = DBLookupComboBox1.DataField) then
+    with DBLookupComboBox1 do
+    begin
+      Left := Rect.Left + DBGrid1.Left + 2;
+      Top := Rect.Top + DBGrid1.Top + 2;
+      Width := Rect.Right - Rect.Left;
+      Width := Rect.Right - Rect.Left;
+      Height := Rect.Bottom - Rect.Top;
+
+      Visible := True;
+    end;
+  end*)
+end;
+
+procedure TForm1.DBGrid2KeyPress(Sender: TObject; var Key: Char);
+begin
+  if (key = Chr(9)) then Exit;
+
+  if (DBGrid1.SelectedField.FieldName = DBLookupComboBox1.DataField) then
+  begin
+    DBLookupComboBox1.SetFocus;
+    SendMessage(DBLookupComboBox1.Handle, WM_Char, word(Key), 0);
+  end
+end;
+
+procedure TForm1.Deletecurrentrow1Click(Sender: TObject);
+begin
+  TDBGrid(TPopupMenu(TMenuItem(Sender).GetParentMenu).PopupComponent).DataSource.DataSet.Delete;
+  // Naive implementation (process the same grid on click on any grid):
+  //ADOTable1.Delete;
 end;
 
 end.
