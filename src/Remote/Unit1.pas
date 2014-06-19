@@ -73,6 +73,11 @@ type
     Memo2: TMemo;
     DBGrid4: TDBGrid;
     DBNavigator4: TDBNavigator;
+    edtFilter: TEdit;
+    btnFilter: TButton;
+    chkExactMatch: TCheckBox;
+    cmdFieldToFilter: TComboBox;
+    btnCancelFilter: TButton;
     procedure btnExport2ExcelClick(Sender: TObject);
     procedure Deletecurrentrow1Click(Sender: TObject);
     procedure ADOTable1textGetText(Sender: TField; var Text: string;
@@ -90,6 +95,8 @@ type
     procedure DBGrid1ColExit(Sender: TObject);
     procedure btnTestClick(Sender: TObject);
     procedure btnQueryClick(Sender: TObject);
+    procedure btnFilterClick(Sender: TObject);
+    procedure btnCancelFilterClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -288,9 +295,25 @@ begin
   Text := Copy(TMemoField(Sender).AsString, 1, 50);
 end;
 
+procedure TForm1.btnCancelFilterClick(Sender: TObject);
+begin
+  ADOTable2.Filtered := False;
+end;
+
 procedure TForm1.btnExport2ExcelClick(Sender: TObject);
 begin
   ExportRecordsetToMSExcel('D:\x.xls', ADOTable1.Recordset );
+end;
+
+var
+  FieldNames : array [0..1] of String = ('username', 'email');
+procedure TForm1.btnFilterClick(Sender: TObject);
+begin
+  if chkExactMatch.Checked then
+    ADOTable2.Filter := FieldNames[cmdFieldToFilter.ItemIndex] + ' = ' + QuotedStr( edtFilter.Text )
+  else
+    ADOTable2.Filter := FieldNames[cmdFieldToFilter.ItemIndex] + ' LIKE ''*' +  edtFilter.Text + '*''';
+  ADOTable2.Filtered := True;
 end;
 
 procedure TForm1.btnQueryClick(Sender: TObject);

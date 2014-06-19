@@ -151,12 +151,9 @@ object Form1: TForm1
       Width = 183
       Height = 25
       Align = alBottom
-      Caption = 'btnExport2Excel'
+      Caption = 'Export to Excel'
       TabOrder = 0
       OnClick = btnExport2ExcelClick
-      ExplicitLeft = 592
-      ExplicitTop = 352
-      ExplicitWidth = 97
     end
   end
   object Panel2: TPanel
@@ -193,7 +190,6 @@ object Form1: TForm1
       Caption = 'Test Query'
       TabOrder = 0
       OnClick = btnQueryClick
-      ExplicitTop = 13
     end
     object Memo1: TMemo
       Left = 96
@@ -247,6 +243,53 @@ object Form1: TForm1
     Align = alCustom
     Kind = dbnHorizontal
     TabOrder = 13
+  end
+  object edtFilter: TEdit
+    Left = 88
+    Top = 395
+    Width = 121
+    Height = 21
+    TabOrder = 14
+  end
+  object btnFilter: TButton
+    Left = 88
+    Top = 431
+    Width = 75
+    Height = 25
+    Caption = 'Filter'
+    TabOrder = 15
+    OnClick = btnFilterClick
+  end
+  object chkExactMatch: TCheckBox
+    Left = 88
+    Top = 413
+    Width = 97
+    Height = 17
+    Caption = 'chkExactMatch'
+    Checked = True
+    State = cbChecked
+    TabOrder = 16
+  end
+  object cmdFieldToFilter: TComboBox
+    Left = 88
+    Top = 376
+    Width = 145
+    Height = 21
+    ItemIndex = 0
+    TabOrder = 17
+    Text = 'UserName'
+    Items.Strings = (
+      'UserName'
+      'Email')
+  end
+  object btnCancelFilter: TButton
+    Left = 169
+    Top = 431
+    Width = 75
+    Height = 25
+    Caption = 'Cancel Filter'
+    TabOrder = 18
+    OnClick = btnCancelFilterClick
   end
   object ADOConnection1: TADOConnection
     Connected = True
